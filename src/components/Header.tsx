@@ -93,10 +93,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteModal }) => {
             <a
               id="header-phone-link"
               href={`tel:${COMPANY.phoneRaw}`}
-              className="flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
+              className="flex items-center gap-2 text-xs font-bold text-slate-200 hover:text-amber-400 px-3.5 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-all border border-white/10"
             >
               <Phone className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden md:inline">{COMPANY.phoneDisplay}</span>
+              <span>Call Now: {COMPANY.phoneDisplay}</span>
             </a>
 
             <button

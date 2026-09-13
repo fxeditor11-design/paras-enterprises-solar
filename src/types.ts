@@ -18,6 +18,8 @@ export interface ProjectItem {
   description: string;
   scopeItems: string[];
   imageUrl: string;
+  realSitePhotoUrl?: string;
+  structureType?: string;
 }
 
 export interface ServiceLocation {

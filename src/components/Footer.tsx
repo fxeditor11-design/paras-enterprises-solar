@@ -103,22 +103,26 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuoteModal }) => {
             <span className="text-xs font-semibold uppercase tracking-wider text-amber-400 block">
               Direct Contact
             </span>
-            <div className="space-y-2">
+            <div className="space-y-2.5">
+              {/* Premium Call Now Button */}
               <a
+                id="footer-call-now-btn"
                 href={`tel:${COMPANY.phoneRaw}`}
-                className="block text-xs text-slate-300 hover:text-white p-2.5 rounded-lg bg-white/[0.04] border border-white/5"
+                className="flex items-center justify-center gap-2 py-3 px-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors shadow-md shadow-amber-400/20 text-center"
               >
-                <span className="text-slate-400 block text-[10px]">Direct Call</span>
-                <span className="font-semibold text-white">{COMPANY.phoneDisplay}</span>
+                <Phone className="w-3.5 h-3.5 fill-slate-950 stroke-none" />
+                <span>Call Now: {COMPANY.phoneDisplay}</span>
               </a>
 
+              {/* WhatsApp Button */}
               <a
+                id="footer-whatsapp-btn"
                 href={`${COMPANY.whatsappLink}?text=${encodeURIComponent(
-                  'Hello Vajhat Ali, I am contacting Paras Enterprises from your website.'
+                  'Hello Paras Enterprises, I would like to enquire about your solar services.'
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-xs text-emerald-300 hover:text-emerald-200 p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20"
+                className="flex items-center justify-center gap-2 text-xs font-semibold text-emerald-300 hover:text-emerald-200 py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/25 transition-colors text-center"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>WhatsApp: {COMPANY.phoneDisplay}</span>
@@ -126,7 +130,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuoteModal }) => {
 
               <button
                 onClick={onOpenQuoteModal}
-                className="w-full text-xs font-semibold py-2.5 px-3 rounded-lg bg-amber-400 text-slate-950 hover:bg-amber-300 transition-colors cursor-pointer"
+                className="w-full text-xs font-semibold py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-white border border-white/10 transition-colors cursor-pointer"
               >
                 Get a Quote
               </button>

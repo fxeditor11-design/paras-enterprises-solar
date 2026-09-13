@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, MessageSquare, Send, CheckCircle2, MapPin, User, ArrowRight, Shield } from 'lucide-react';
+import { Phone, MessageSquare, Send, CheckCircle2, MapPin, User, ArrowRight, Shield, Zap, Calculator } from 'lucide-react';
 import { COMPANY, SERVICES_LIST, SERVICE_LOCATIONS } from '../data/companyData';
+import { REAL_SOLAR_IMAGES } from '../data/solarImages';
 
 interface ContactSectionProps {
   onOpenQuoteModal: () => void;
@@ -32,81 +33,97 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
     window.open(`${COMPANY.whatsappLink}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const handleScrollToCalc = () => {
+    const calcEl = document.getElementById('solar-calculator');
+    if (calcEl) {
+      calcEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="contact"
-      className="relative py-28 bg-[#070D18] text-white border-t border-white/10 overflow-hidden"
+      className="relative py-16 sm:py-20 bg-[#070D18] text-white border-t border-white/10 overflow-hidden"
     >
-      {/* Dramatic Cinematic Background Lighting */}
-      <div className="absolute inset-0 bg-solar-grid opacity-20 pointer-events-none" />
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Cinematic Solar Engineering Worksite Background Visual Layer */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('${REAL_SOLAR_IMAGES.solarEngineeringHero.path}')`,
+          }}
+        />
+        {/* Dark navy overlay to preserve high-contrast legibility */}
+        <div className="absolute inset-0 bg-[#070D18]/92 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070D18] via-[#070D18]/90 to-[#070D18]" />
+        <div className="absolute inset-0 bg-solar-grid opacity-25" />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Dramatic Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-semibold uppercase tracking-[0.25em] text-amber-400">
+        {/* Dramatic Section Header with requested copy */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-2.5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-semibold uppercase tracking-[0.25em] text-amber-400">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-            <span>Direct Contractor Communication</span>
+            <span>Ready to Start Your Project?</span>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight">
-            {COMPANY.contactCtaHeading}
+          <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+            Talk to Vajhat Ali
           </h2>
 
-          <p className="text-lg sm:text-xl text-slate-300 font-light">
-            {COMPANY.contactCtaSubheading}
+          <p className="text-base sm:text-lg text-slate-300 font-light max-w-xl mx-auto">
+            Direct contractor consultation for solar installations, fittings, government projects, and complete paperwork.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           
           {/* Left Column: Direct Owner Profile Card & Instant Action Buttons */}
-          <div className="lg:col-span-5 flex flex-col justify-between p-8 rounded-3xl bg-gradient-to-br from-[#0F1E3D] via-[#0B1426] to-[#070D18] border border-white/15 shadow-2xl space-y-8">
-            <div className="space-y-6">
+          <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#0F1E3D]/95 via-[#0B1426]/95 to-[#070D18]/95 border border-white/15 shadow-2xl space-y-6 backdrop-blur-md">
+            <div className="space-y-5">
               
               {/* Owner Badge */}
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-amber-500/20">
-                  <User className="w-8 h-8 text-slate-950" />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-amber-500/20 flex-shrink-0">
+                  <User className="w-7 h-7 text-slate-950" />
                 </div>
                 <div>
                   <h3 className="font-display text-2xl font-bold text-white tracking-wide">
                     {COMPANY.owner}
                   </h3>
-                  <span className="text-sm font-semibold text-amber-400 block">
+                  <span className="text-xs sm:text-sm font-semibold text-amber-400 block">
                     {COMPANY.ownerTitle} • {COMPANY.name}
                   </span>
-                  <div className="flex items-center gap-1 text-xs text-slate-400 mt-1">
+                  <div className="flex items-center gap-1 text-xs text-slate-400 mt-0.5">
                     <Shield className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Government Contractor</span>
+                    <span>Government Contractor • Latur</span>
                   </div>
                 </div>
               </div>
 
               {/* Contact Info Box */}
-              <div className="space-y-4 pt-4 border-t border-white/10">
-                <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+              <div className="space-y-3 pt-3 border-t border-white/10">
+                <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
                   <div>
-                    <span className="text-xs text-slate-400 uppercase tracking-wider block">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
                       Direct Phone / WhatsApp
                     </span>
                     <span className="font-display text-lg sm:text-xl font-bold text-white tracking-wide">
                       {COMPANY.phoneDisplay}
                     </span>
                   </div>
-                  <div className="w-9 h-9 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400">
+                  <div className="w-9 h-9 rounded-lg bg-amber-400/15 flex items-center justify-center text-amber-400">
                     <Phone className="w-4 h-4" />
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
                   <div>
-                    <span className="text-xs text-slate-400 uppercase tracking-wider block">
-                      Main Office
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">
+                      Main Office Location
                     </span>
-                    <span className="text-sm sm:text-base font-semibold text-white">
+                    <span className="text-xs sm:text-sm font-semibold text-white">
                       {COMPANY.mainOffice}
                     </span>
                   </div>
@@ -118,63 +135,64 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
 
             </div>
 
-            {/* Exactly Specified Action Buttons: Call Now, WhatsApp, Request a Quote */}
-            <div className="space-y-3 pt-6 border-t border-white/10">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
-                Immediate Response Channels:
+            {/* Exactly Specified Action Buttons: Call Now →, WhatsApp →, Get Final Price → */}
+            <div className="space-y-2.5 pt-4 border-t border-white/10">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1">
+                Direct Communication Channels:
               </span>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <a
                   id="contact-call-now-btn"
                   href={`tel:${COMPANY.phoneRaw}`}
-                  className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm transition-all duration-300 shadow-lg shadow-amber-400/20 text-center"
+                  className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-400/20 text-center"
                 >
-                  <Phone className="w-4 h-4" />
-                  <span>Call Now</span>
+                  <Phone className="w-3.5 h-3.5 fill-slate-950 stroke-none" />
+                  <span>Call Now →</span>
                 </a>
 
                 <a
                   id="contact-whatsapp-btn"
                   href={`${COMPANY.whatsappLink}?text=${encodeURIComponent(
-                    'Hello Vajhat Ali, I would like to speak regarding Paras Enterprises services.'
+                    'Hello Paras Enterprises, I would like to enquire about your solar services.'
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all duration-300 shadow-lg shadow-emerald-500/20 text-center"
+                  className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-emerald-500/20 text-center"
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>WhatsApp</span>
+                  <MessageSquare className="w-3.5 h-3.5 fill-slate-950 stroke-none" />
+                  <span>WhatsApp →</span>
                 </a>
               </div>
 
+              {/* Get Final Price CTA */}
               <button
-                id="contact-request-quote-btn"
-                onClick={onOpenQuoteModal}
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-colors cursor-pointer"
+                id="contact-get-final-price-btn"
+                onClick={handleScrollToCalc}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] text-amber-300 hover:text-amber-200 font-bold text-xs uppercase tracking-wider border border-white/15 transition-colors cursor-pointer"
               >
-                <span>Request a Quote</span>
-                <ArrowRight className="w-4 h-4 text-amber-400" />
+                <Calculator className="w-3.5 h-3.5 text-amber-400" />
+                <span>Get Final Price →</span>
               </button>
             </div>
 
           </div>
 
           {/* Right Column: Direct Quote & Inquiry Form */}
-          <div className="lg:col-span-7 p-8 rounded-3xl bg-white/[0.03] border border-white/10 shadow-2xl flex flex-col justify-between">
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-[#081020]/90 backdrop-blur-md border border-white/10 shadow-2xl flex flex-col justify-between">
             {isSubmitted ? (
-              <div className="my-auto py-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className="text-center py-10 space-y-4 my-auto">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-white">
                   Inquiry Received
                 </h3>
-                <p className="text-slate-300 text-sm max-w-md mx-auto">
+                <p className="text-slate-300 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
                   Thank you. Vajhat Ali and the Paras Enterprises technical team will review your
                   project requirements and contact you shortly at {formData.phone || COMPANY.phoneDisplay}.
                 </p>
-                <div className="pt-4 flex justify-center gap-3">
+                <div className="pt-2 flex justify-center gap-3">
                   <button
                     onClick={() => setIsSubmitted(false)}
                     className="text-xs text-amber-400 hover:underline"
@@ -184,19 +202,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <h3 className="font-display text-xl font-bold text-white mb-1">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-0.5">
                     Send Direct Project Inquiry
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Fill in your details or submit via WhatsApp for instant communication.
+                    Fill in your project specs or submit via WhatsApp for immediate response.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-slate-300 block mb-1">
                       Your Name / Entity *
                     </label>
                     <input
@@ -206,12 +224,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                       placeholder="e.g. Ramesh Patil / Firm Name"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-slate-300 block mb-1">
                       Phone / Mobile Number *
                     </label>
                     <input
@@ -221,21 +239,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-slate-300 block mb-1">
                       Service Required
                     </label>
                     <select
                       id="contact-service-select"
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#091020] border border-white/10 text-white text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#091020] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                     >
                       {SERVICES_LIST.map((s) => (
                         <option key={s.id} value={s.title}>
@@ -246,14 +264,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-slate-300 block mb-1">
                       Location
                     </label>
                     <select
                       id="contact-location-select"
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#091020] border border-white/10 text-white text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#091020] border border-white/10 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400"
                     >
                       {SERVICE_LOCATIONS.map((l) => (
                         <option key={l.id} value={l.name}>
@@ -266,7 +284,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 block mb-1.5">
+                  <label className="text-xs font-semibold text-slate-300 block mb-1">
                     Project Details / Requirements
                   </label>
                   <textarea
@@ -275,7 +293,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                     placeholder="Briefly describe your solar capacity, roof type, government tender specs, or paperwork required..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-400 resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400 resize-none"
                   />
                 </div>
 
@@ -283,9 +301,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                   <button
                     id="contact-form-submit-btn"
                     type="submit"
-                    className="w-full sm:flex-1 flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm transition-all duration-300 shadow-lg shadow-amber-400/20 cursor-pointer"
+                    className="w-full sm:flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-400/20 cursor-pointer"
                   >
-                    <Send className="w-4 h-4" />
+                    <Send className="w-3.5 h-3.5" />
                     <span>Submit Request</span>
                   </button>
 
@@ -293,9 +311,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenQuoteModal
                     id="contact-form-whatsapp-btn"
                     type="button"
                     onClick={handleWhatsAppDirect}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-sm font-semibold transition-colors cursor-pointer"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
                   >
-                    <MessageSquare className="w-4 h-4" />
+                    <MessageSquare className="w-3.5 h-3.5" />
                     <span>Send via WhatsApp</span>
                   </button>
                 </div>

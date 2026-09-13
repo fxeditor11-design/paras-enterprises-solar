@@ -19,7 +19,7 @@ export const ServiceAreaSection: React.FC<ServiceAreaSectionProps> = ({ onOpenQu
   return (
     <section
       id="service-areas"
-      className="relative py-28 bg-[#091020] text-white border-t border-white/5 overflow-hidden"
+      className="relative py-16 sm:py-20 bg-[#091020] text-white border-t border-white/5 overflow-hidden"
     >
       {/* Background radial atmosphere */}
       <div className="absolute inset-0 bg-solar-grid opacity-20 pointer-events-none" />
@@ -28,7 +28,7 @@ export const ServiceAreaSection: React.FC<ServiceAreaSectionProps> = ({ onOpenQu
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header with exact requested copy */}
-        <div className="max-w-3xl mb-14 space-y-4">
+        <div className="max-w-3xl mb-8 sm:mb-10 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
             <MapPin className="w-3.5 h-3.5" />
             <span>Where We Work</span>

@@ -25,7 +25,10 @@ import {
   SolarPricingConfig,
   CalculatorInput,
   calculateSolarEstimate,
+  calculateBrandComparison,
+  SolarBrandKey,
 } from '../config/solarPricingConfig';
+import { BrandComparisonSection } from './BrandComparisonSection';
 
 interface SolarCalculatorProps {
   onOpenQuoteModal?: (prefilledNote?: string) => void;
@@ -36,6 +39,10 @@ export const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onOpenQuoteMod
   const [config, setConfig] = useState<SolarPricingConfig>(DEFAULT_SOLAR_CONFIG);
   const [showConfigDrawer, setShowConfigDrawer] = useState<boolean>(false);
   const [showOwnerContactModal, setShowOwnerContactModal] = useState<boolean>(false);
+  const [selectedBrandForModal, setSelectedBrandForModal] = useState<{
+    name: string;
+    estimatedTotal: number;
+  } | null>(null);
 
   // Customer selections
   const [capacityKw, setCapacityKw] = useState<number>(5);
@@ -84,7 +91,7 @@ I would like to discuss the final price.`;
   return (
     <section
       id="solar-calculator"
-      className="relative py-24 bg-[#070D18] text-white border-t border-white/5 overflow-hidden"
+      className="relative py-16 sm:py-20 bg-[#070D18] text-white border-t border-white/5 overflow-hidden"
     >
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-solar-grid opacity-15 pointer-events-none" />
@@ -94,8 +101,8 @@ I would like to discuss the final price.`;
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-3xl space-y-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-5">
+          <div className="max-w-3xl space-y-2.5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
               <Calculator className="w-3.5 h-3.5" />
               <span>Solar Cost Estimator</span>
@@ -202,10 +209,114 @@ I would like to discuss the final price.`;
                     </span>
                   </div>
 
+                  {/* BRAND PRICING VARIABLES (Configurable by Paras Enterprises) */}
+                  <div className="p-3 rounded-xl bg-black/40 border border-amber-400/20 col-span-1 sm:col-span-2 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-amber-400 font-mono text-xs font-bold block">
+                        Solar Brand Selling Rates (Per kW Equipment Base)
+                      </label>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        Brand Comparison Engine
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                      {/* Waaree */}
+                      <div className="p-2 rounded-lg bg-white/[0.03] border border-white/10">
+                        <label className="text-[11px] text-slate-300 font-mono block">
+                          01 • Waaree Solar (₹/kW)
+                        </label>
+                        <input
+                          type="number"
+                          step="500"
+                          value={config.waareePricePerKw}
+                          onChange={(e) =>
+                            setConfig({
+                              ...config,
+                              waareePricePerKw: parseInt(e.target.value) || 0,
+                            })
+                          }
+                          className="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-white font-mono text-xs mt-1"
+                        />
+                        <span className="text-[9px] text-slate-400 block mt-0.5">Standard / Value</span>
+                      </div>
+
+                      {/* UTL */}
+                      <div className="p-2 rounded-lg bg-white/[0.03] border border-white/10">
+                        <label className="text-[11px] text-slate-300 font-mono block">
+                          02 • UTL Solar (₹/kW)
+                        </label>
+                        <input
+                          type="number"
+                          step="500"
+                          value={config.utlPricePerKw}
+                          onChange={(e) =>
+                            setConfig({
+                              ...config,
+                              utlPricePerKw: parseInt(e.target.value) || 0,
+                            })
+                          }
+                          className="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-white font-mono text-xs mt-1"
+                        />
+                        <span className="text-[9px] text-slate-400 block mt-0.5">Value / Performance</span>
+                      </div>
+
+                      {/* Tata Power */}
+                      <div className="p-2 rounded-lg bg-white/[0.03] border border-white/10">
+                        <label className="text-[11px] text-slate-300 font-mono block">
+                          03 • Tata Power Solar (₹/kW)
+                        </label>
+                        <input
+                          type="number"
+                          step="500"
+                          value={config.tataPricePerKw}
+                          onChange={(e) =>
+                            setConfig({
+                              ...config,
+                              tataPricePerKw: parseInt(e.target.value) || 0,
+                            })
+                          }
+                          className="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-white font-mono text-xs mt-1"
+                        />
+                        <span className="text-[9px] text-slate-400 block mt-0.5">Premium Option</span>
+                      </div>
+                    </div>
+
+                    {/* Recommended Brand Toggle */}
+                    <div className="flex flex-wrap items-center justify-between pt-1 gap-2 border-t border-white/5 text-xs">
+                      <span className="text-slate-400">Featured &apos;Recommended&apos; Badge:</span>
+                      <div className="flex items-center gap-1.5">
+                        {[
+                          { key: 'waaree', label: 'Waaree' },
+                          { key: 'utl', label: 'UTL' },
+                          { key: 'tata', label: 'Tata Power' },
+                          { key: null, label: 'None' },
+                        ].map((opt) => (
+                          <button
+                            key={opt.label}
+                            onClick={() =>
+                              setConfig({
+                                ...config,
+                                recommendedBrand: opt.key as SolarBrandKey | null,
+                              })
+                            }
+                            className={`px-2 py-0.5 rounded text-[10px] font-mono cursor-pointer ${
+                              config.recommendedBrand === opt.key
+                                ? 'bg-amber-400 text-slate-950 font-bold'
+                                : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                            }`}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
                   {/* pricePerKw = configurable */}
                   <div className="p-3 rounded-xl bg-black/40 border border-white/10">
                     <label className="text-slate-400 font-mono block mb-1">
-                      pricePerKw (Residential)
+                      General pricePerKw (Residential)
                     </label>
                     <input
                       type="number"
@@ -635,14 +746,14 @@ I would like to discuss the final price.`;
                 </button>
 
                 {/* Direct quick action buttons */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                   <a
                     id="call-owner-calc-btn"
                     href={`tel:${COMPANY.phoneRaw}`}
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-xs font-semibold text-white border border-white/10 transition-colors"
+                    className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-all shadow-md shadow-amber-400/20 text-center"
                   >
-                    <Phone className="w-3.5 h-3.5 text-amber-400" />
-                    <span>📞 Call Owner</span>
+                    <Phone className="w-3.5 h-3.5 fill-slate-950 stroke-none" />
+                    <span>📞 Call Now: {COMPANY.phoneDisplay}</span>
                   </a>
 
                   <a
@@ -650,10 +761,10 @@ I would like to discuss the final price.`;
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs font-semibold text-emerald-300 transition-colors"
+                    className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-bold text-emerald-300 transition-colors text-center"
                   >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>💬 WhatsApp</span>
+                    <MessageSquare className="w-3.5 h-3.5 fill-emerald-400 stroke-none" />
+                    <span>💬 WhatsApp Owner</span>
                   </a>
                 </div>
 
@@ -669,6 +780,23 @@ I would like to discuss the final price.`;
           </div>
 
         </div>
+
+        {/* SOLAR BRAND & BUDGET COMPARISON SECTION (Waaree, UTL, Tata Power) */}
+        <BrandComparisonSection
+          comparisonData={calculateBrandComparison(
+            { capacityKw, systemType, propertyType, location },
+            config
+          )}
+          capacityKw={capacityKw}
+          systemTypeLabel={systemTypeLabels[systemType]}
+          propertyTypeLabel={propertyTypeLabels[propertyType]}
+          location={location}
+          formatCurrency={formatCurrency}
+          onTalkToOwner={(brandName, estimatedTotal) => {
+            setSelectedBrandForModal({ name: brandName, estimatedTotal });
+            setShowOwnerContactModal(true);
+          }}
+        />
 
       </div>
 
@@ -692,7 +820,10 @@ I would like to discuss the final price.`;
                   </h3>
                 </div>
                 <button
-                  onClick={() => setShowOwnerContactModal(false)}
+                  onClick={() => {
+                    setShowOwnerContactModal(false);
+                    setSelectedBrandForModal(null);
+                  }}
                   className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white cursor-pointer"
                 >
                   ✕
@@ -718,18 +849,26 @@ I would like to discuss the final price.`;
               </div>
 
               {/* Estimate Summary Details */}
-              <div className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs text-slate-300 space-y-1">
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-slate-300 space-y-1.5">
                 <div className="flex justify-between">
                   <span className="text-slate-400">System:</span>
                   <span className="font-semibold text-white">{capacityKw} kW • {systemTypeLabels[systemType]}</span>
                 </div>
+                {selectedBrandForModal && (
+                  <div className="flex justify-between text-amber-400">
+                    <span>Preferred Brand:</span>
+                    <span className="font-bold">{selectedBrandForModal.name}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-slate-400">Location:</span>
                   <span className="font-semibold text-white">{location}</span>
                 </div>
-                <div className="flex justify-between pt-1 border-t border-white/10 font-bold text-amber-400">
+                <div className="flex justify-between pt-1 border-t border-white/10 font-bold text-amber-400 text-sm">
                   <span>Estimated Total:</span>
-                  <span>₹{formatCurrency(calculation.estimatedTotal)}</span>
+                  <span>
+                    ₹{formatCurrency(selectedBrandForModal ? selectedBrandForModal.estimatedTotal : calculation.estimatedTotal)}
+                  </span>
                 </div>
               </div>
 
@@ -744,7 +883,20 @@ I would like to discuss the final price.`;
                 </a>
 
                 <a
-                  href={whatsappUrl}
+                  href={
+                    selectedBrandForModal
+                      ? `${COMPANY.whatsappLink}?text=${encodeURIComponent(
+                          `Hello Vajhat Ali, I am enquiring from Paras Enterprises Solar Calculator.
+
+System: ${capacityKw} kW • ${systemTypeLabels[systemType]}
+Location: ${location}
+Equipment Selected: ${selectedBrandForModal.name}
+Estimated Budget: ₹${formatCurrency(selectedBrandForModal.estimatedTotal)}
+
+I would like to discuss final equipment availability and quotation.`
+                        )}`
+                      : whatsappUrl
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-colors"

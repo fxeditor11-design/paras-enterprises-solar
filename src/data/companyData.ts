@@ -1,4 +1,5 @@
 import { ServiceItem, ProjectItem, ServiceLocation } from '../types';
+import { REAL_SOLAR_IMAGES } from './solarImages';
 
 export const COMPANY = {
   name: 'PARAS ENTERPRISES',
@@ -40,8 +41,7 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Inverter wiring and electrical distribution setup',
       'System startup and energy output testing',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.rooftopElevatedTerrace.path,
   },
   {
     id: 'solar-fitting',
@@ -62,8 +62,7 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Chemical earthing and ground bonding verification',
       'Cable protection and junction terminal sealing',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1545209568-18e952674e2a?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.industrialShedFitting.path,
   },
   {
     id: 'government-contract-work',
@@ -84,8 +83,7 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Progress tracking and technical documentation handover',
       'Official departmental inspection coordination',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1508873696983-2df5293cb395?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.groundMountedArray.path,
   },
   {
     id: 'complete-paperwork',
@@ -106,8 +104,7 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Official inspection clearance support',
       'Final completion and sanction document delivery',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.rooftopElevatedTerrace.path,
   },
   {
     id: 'fast-work-execution',
@@ -128,8 +125,7 @@ export const SERVICES_LIST: ServiceItem[] = [
       'Daily milestone tracking and proactive resolution',
       'Prompt project commissioning and client walkthrough',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.solarEngineeringHero.path,
   },
 ];
 
@@ -208,21 +204,22 @@ export const SERVICE_LOCATIONS: ServiceLocation[] = [
 
 export const PROJECTS_DATA: ProjectItem[] = [
   {
-    id: 'solar-latur-commercial',
+    id: 'solar-latur-rooftop',
     title: 'Rooftop Solar Installation',
     category: 'solar-installation',
     categoryLabel: 'Solar Installation',
     location: 'Latur, Maharashtra',
     description:
-      'High-efficiency rooftop solar photovoltaic setup engineered with mono-PERC panels, synchronized inverters, and grid connectivity.',
+      'High-efficiency rooftop solar photovoltaic setup engineered with elevated galvanized steel mounting structure on concrete pedestals for unshaded solar yield on residential terrace.',
+    structureType: 'Elevated 4-Post Steel Frame with Concrete Footings',
     scopeItems: [
-      'Engineered rooftop structural mounting',
-      'Tier-1 solar module alignment and wiring',
-      'Inverter setup and distribution protection',
-      'Testing and commissioning verification',
+      'Elevated galvanized steel structural mounting',
+      'Tier-1 mono-PERC solar module alignment (6-panel array)',
+      'Concrete pedestal foundation anchoring on terrace floor',
+      'Inverter setup, surge protection, and net-metering commissioning',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.rooftopElevatedTerrace.path,
+    realSitePhotoUrl: REAL_SOLAR_IMAGES.rooftopTerracePortrait.path,
   },
   {
     id: 'solar-fitting-nilanga',
@@ -238,8 +235,23 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Surge protection device integration',
       'Dedicated earthing resistance bonding',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1545209568-18e952674e2a?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.industrialShedFitting.path,
+  },
+  {
+    id: 'solar-engineering-paras',
+    title: 'Paras Enterprises Solar Engineering',
+    category: 'solar-installation',
+    categoryLabel: 'Solar Installation',
+    location: 'Renapur & Omerga, Maharashtra',
+    description:
+      'Fast-track commercial solar engineering with rapid structural deployment, automated generation monitoring, and robust operational performance.',
+    scopeItems: [
+      'High-performance photovoltaic array assembly',
+      'Grid synchronization and meter coordination',
+      'Quality assurance and wiring insulation test',
+      'System handover and operational walkthrough',
+    ],
+    imageUrl: REAL_SOLAR_IMAGES.solarEngineeringHero.path,
   },
   {
     id: 'govt-contract-parbhani',
@@ -248,15 +260,14 @@ export const PROJECTS_DATA: ProjectItem[] = [
     categoryLabel: 'Government Projects',
     location: 'Parbhani, Maharashtra',
     description:
-      'Execution of government contract requirements for institutional power systems with thorough paperwork and technical compliance.',
+      'Execution of government contract requirements for institutional and ground-mounted power systems with thorough paperwork and technical compliance.',
     scopeItems: [
       'Official departmental specification adherence',
       'Standardized civil foundation and framing',
       'Milestone-based progress reporting',
       'Inspection coordination and handover',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1508873696983-2df5293cb395?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.groundMountedArray.path,
   },
   {
     id: 'solar-fitting-ausa',
@@ -272,8 +283,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Dual-copper bonded earthing network',
       'AC/DC distribution box mounting',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.industrialShedFitting.path,
   },
   {
     id: 'govt-contract-ambajogai',
@@ -289,24 +299,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Complete sanction and net-metering paperwork',
       'Departmental verification and final sign-off',
     ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
-    id: 'solar-renapur-omerga',
-    title: 'Commercial Solar System Commissioning',
-    category: 'solar-installation',
-    categoryLabel: 'Solar Installation',
-    location: 'Renapur & Omerga, Maharashtra',
-    description:
-      'Fast-track solar installation with rapid structural deployment, automated monitoring, and reliable operational performance.',
-    scopeItems: [
-      'High-performance photovoltaic array assembly',
-      'Grid synchronization and meter coordination',
-      'Quality assurance and wiring insulation test',
-      'System handover and operational walkthrough',
-    ],
-    imageUrl:
-      'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: REAL_SOLAR_IMAGES.rooftopElevatedTerrace.path,
   },
 ];

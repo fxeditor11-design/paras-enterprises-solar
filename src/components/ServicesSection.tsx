@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, ChevronRight, Sparkles, Sun, Wrench, Landmark, FileText, Zap } from 'lucide-react';
 import { SERVICES_LIST, COMPANY } from '../data/companyData';
 import { ServiceItem } from '../types';
+import { onSolarImageError } from '../data/solarImages';
 
 interface ServicesSectionProps {
   onOpenQuoteModal: (serviceId?: string) => void;
@@ -24,7 +25,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
   return (
     <section
       id="services"
-      className="relative py-28 bg-[#091020] text-white border-t border-white/5 overflow-hidden"
+      className="relative py-16 sm:py-20 bg-[#091020] text-white border-t border-white/5 overflow-hidden"
     >
       {/* Subtle grid and ambient illumination */}
       <div className="absolute inset-0 bg-solar-grid opacity-20 pointer-events-none" />
@@ -34,7 +35,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-3xl mb-10 sm:mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
             <span>Specialized Capabilities</span>
           </div>
@@ -44,13 +45,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
               End-to-End Delivery.
             </span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
             From complete solar energy installations and specialized mounting fittings to registered
             government contract execution and administrative paperwork liaison.
           </p>
         </div>
 
-        {/* 5 Core Services List + Interactive Showcase */}
+        {/* 5 Core Services Staggered Cards Layout + Interactive Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: The 5 Ordered Service Cards */}
@@ -64,17 +65,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                   key={service.id}
                   id={`service-card-${service.id}`}
                   onClick={() => setActiveServiceId(service.id)}
-                  className={`group relative p-5 sm:p-6 rounded-2xl cursor-pointer transition-all duration-300 border text-left ${
+                  className={`group relative p-4 sm:p-5 rounded-2xl cursor-pointer transition-all duration-300 border text-left overflow-hidden ${
                     isSelected
                       ? 'bg-gradient-to-r from-[#0F1D38] to-[#0D182E] border-amber-400/50 shadow-xl shadow-amber-500/5 ring-1 ring-amber-400/30'
                       : 'bg-white/[0.02] hover:bg-white/[0.05] border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
                       {/* Number Identifier */}
                       <span
-                        className={`font-mono text-sm sm:text-base font-bold transition-colors ${
+                        className={`font-mono text-xs sm:text-sm font-bold transition-colors ${
                           isSelected ? 'text-amber-400' : 'text-slate-500 group-hover:text-slate-300'
                         }`}
                       >
@@ -83,7 +84,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
 
                       {/* Icon */}
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all shrink-0 ${
                           isSelected
                             ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/20'
                             : 'bg-white/5 text-slate-300 group-hover:text-amber-400 group-hover:bg-white/10'
@@ -93,22 +94,22 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                       </div>
 
                       {/* Titles & Description */}
-                      <div>
-                        <h3 className="font-display text-lg sm:text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors truncate">
                           {service.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                        <p className="text-xs text-slate-300 mt-0.5 leading-relaxed line-clamp-1">
                           {service.shortDesc}
                         </p>
                       </div>
                     </div>
 
-                    <div className="shrink-0 pt-1">
+                    <div className="shrink-0">
                       <div
-                        className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform ${
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform ${
                           isSelected
                             ? 'bg-amber-400/20 text-amber-400 rotate-45'
-                            : 'text-slate-500 group-hover:text-slate-300'
+                            : 'text-slate-500 group-hover:text-slate-300 bg-white/5'
                         }`}
                       >
                         <ArrowUpRight className="w-4 h-4" />
@@ -120,8 +121,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
             })}
           </div>
 
-          {/* Right Column: Deep-Dive Preview Panel for Selected Service */}
-          <div className="lg:col-span-6 lg:sticky lg:top-28">
+          {/* Right Column: Deep-Dive Preview Panel with Large Worksite Visual */}
+          <div className="lg:col-span-6 lg:sticky lg:top-24">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
@@ -129,24 +130,26 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl bg-gradient-to-b from-[#0F1C36] to-[#070D18] border border-white/15 p-6 sm:p-8 shadow-2xl overflow-hidden relative"
+                className="rounded-2xl bg-gradient-to-b from-[#0F1C36] to-[#070D18] border border-white/15 p-5 sm:p-7 shadow-2xl overflow-hidden relative"
               >
                 {/* Visual Preview Image */}
-                <div className="relative h-48 sm:h-56 rounded-xl overflow-hidden mb-6 border border-white/10">
+                <div className="relative h-44 sm:h-52 rounded-xl overflow-hidden mb-5 border border-white/10 group bg-slate-900">
                   <img
                     src={activeService.imageUrl}
                     alt={activeService.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => onSolarImageError(e)}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#070D18] via-transparent to-transparent opacity-80" />
-                  <div className="absolute top-3 left-3 bg-[#070D18]/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-amber-400 border border-white/10">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070D18] via-[#070D18]/30 to-transparent opacity-85" />
+                  <div className="absolute top-3 left-3 bg-[#070D18]/85 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold text-amber-400 border border-white/10">
                     Service {activeService.number} — Paras Enterprises
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-display text-2xl font-bold text-white">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
                       {activeService.title}
                     </h3>
                     <span className="text-xs text-amber-400 font-mono tracking-wider font-semibold uppercase">
@@ -154,35 +157,35 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                     </span>
                   </div>
 
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                     {activeService.fullDesc}
                   </p>
 
                   {/* Highlights / Features */}
-                  <div className="space-y-2 pt-2">
+                  <div className="space-y-1.5 pt-1">
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
                       Execution Highlights:
                     </span>
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                       {activeService.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200">
-                          <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                          <span>{feature}</span>
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-200">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                          <span className="leading-snug">{feature}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Work Scope Details */}
-                  <div className="pt-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-2">
+                  <div className="pt-1">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
                       Technical Scope:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {activeService.scope.map((item, idx) => (
                         <span
                           key={idx}
-                          className="text-[11px] px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-slate-300"
+                          className="text-[11px] px-2.5 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-slate-300"
                         >
                           {item}
                         </span>
@@ -191,11 +194,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                   </div>
 
                   {/* CTA inside Panel */}
-                  <div className="pt-4 flex flex-wrap items-center gap-3 border-t border-white/10">
+                  <div className="pt-3 flex flex-wrap items-center gap-2.5 border-t border-white/10">
                     <button
                       id={`quote-btn-for-${activeService.id}`}
                       onClick={() => onOpenQuoteModal(activeService.id)}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold text-xs transition-colors shadow-lg shadow-amber-400/20 cursor-pointer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold text-xs transition-colors shadow-lg shadow-amber-400/20 cursor-pointer"
                     >
                       <span>Inquire About {activeService.title}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -207,7 +210,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenQuoteMod
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs border border-white/10 transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-xs border border-white/10 transition-colors"
                     >
                       <span>WhatsApp Inquiries</span>
                     </a>

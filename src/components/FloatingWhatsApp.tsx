@@ -5,11 +5,14 @@ import { COMPANY } from '../data/companyData';
 export const FloatingWhatsApp: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(true);
 
-  const defaultMessage = 'Hello Vajhat Ali, I would like to inquire about Paras Enterprises services.';
+  const defaultMessage = 'Hello Paras Enterprises, I would like to enquire about your solar services.';
   const whatsappUrl = `${COMPANY.whatsappLink}?text=${encodeURIComponent(defaultMessage)}`;
 
   return (
-    <aside aria-label="Quick Communication" className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+    <aside
+      aria-label="Quick Communication"
+      className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 hidden sm:flex items-center gap-3"
+    >
       {/* Tooltip badge */}
       {showTooltip && (
         <div className="hidden sm:flex items-center gap-2 bg-[#0B1325]/95 backdrop-blur-md text-white border border-white/15 px-3 py-1.5 rounded-xl text-xs shadow-2xl shadow-black/50 animate-fade-in">

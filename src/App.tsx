@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { IntroScreen } from './components/IntroScreen';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { BrandMarquee } from './components/BrandMarquee';
 import { ServicesSection } from './components/ServicesSection';
+import { VisualBannerStrip } from './components/VisualBannerStrip';
 import { AboutSection } from './components/AboutSection';
+import { EngineeringQuoteSection } from './components/EngineeringQuoteSection';
 import { ProjectsShowcase } from './components/ProjectsShowcase';
 import { ServiceAreaSection } from './components/ServiceAreaSection';
 import { SolarCalculator } from './components/SolarCalculator';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { MobileStickyActionBar } from './components/MobileStickyActionBar';
 import { QuoteModal } from './components/QuoteModal';
 
 export default function App() {
@@ -49,11 +53,20 @@ export default function App() {
           onScrollToContact={handleScrollToContact}
         />
 
+        {/* Dynamic Continuous Marquee Strip */}
+        <BrandMarquee />
+
         {/* 01 to 05 Interactive Services Section */}
         <ServicesSection onOpenQuoteModal={handleOpenQuoteModal} />
 
+        {/* Full-width Engineering Visual Banner Transition */}
+        <VisualBannerStrip onOpenQuoteModal={() => handleOpenQuoteModal()} />
+
         {/* Cinematic Split-Screen About Section */}
         <AboutSection onOpenQuoteModal={() => handleOpenQuoteModal()} />
+
+        {/* Contractor Principles Quote Block */}
+        <EngineeringQuoteSection />
 
         {/* Premium Project Showcase (Solar Installation, Fitting, Govt Projects) */}
         <ProjectsShowcase onOpenQuoteModal={handleOpenQuoteModal} />
@@ -71,14 +84,17 @@ export default function App() {
       {/* Corporate Engineering Footer */}
       <Footer onOpenQuoteModal={() => handleOpenQuoteModal()} />
 
-      {/* Quick Floating WhatsApp Action */}
+      {/* Quick Floating WhatsApp Action (Desktop/Tablet) */}
       <FloatingWhatsApp />
 
-      {/* Quote / Inquiry Consultation Modal */}
+      {/* Fixed Bottom Mobile Contact Bar */}
+      <MobileStickyActionBar />
+
+      {/* Interactive Quotation & Consultation Modal */}
       <QuoteModal
         isOpen={isQuoteModalOpen}
-        initialServiceId={selectedServiceId}
         onClose={handleCloseQuoteModal}
+        preselectedServiceId={selectedServiceId}
       />
     </div>
   );
